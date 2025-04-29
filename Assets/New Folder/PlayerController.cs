@@ -15,10 +15,22 @@ public class PlayerController : MonoBehaviour
 
     private bool isRunning = false;
 
+
+    private PlayerStatManager statManager;
+
+    public GameObject statUIPanel; 
+    private StatUIManager statUIManager;
+
+    private bool isStatUIOpen = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        statManager = GetComponent<PlayerStatManager>();
+
+        statUIManager = statUIPanel.GetComponent<StatUIManager>();
+
     }
 
     void Update()
@@ -28,7 +40,7 @@ public class PlayerController : MonoBehaviour
 
         moveInput = new Vector3(moveX, 0f, moveZ).normalized;
 
-        // 달리기 입력 체크
+       
         if (Input.GetKey(KeyCode.LeftShift))
         {
             isRunning = true;
@@ -38,22 +50,40 @@ public class PlayerController : MonoBehaviour
             isRunning = false;
         }
 
-        // 움직이는 속도 설정
+        
         float currentSpeed = isRunning ? runSpeed : walkSpeed;
         moveVelocity = moveInput * currentSpeed;
 
-        // 애니메이션 MoveSpeed 설정
-        animator.SetFloat("MoveSpeed", moveInput.magnitude);
+     
+        animator.SetFloat("MoveSpeed", moveVelocity.magnitude);
 
-        // 애니메이션 isRunning 설정
+
         animator.SetBool("IsRunning", isRunning);
 
-        // 이동 방향으로 회전
-        if (moveInput.magnitude > 0f) // 이동 입력이 있을 때만 회전
+        if (moveInput.magnitude > 0f) 
         {
-            Quaternion targetRotation = Quaternion.LookRotation(moveInput);  // 이동 방향을 바라보게 회전
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);  // 회전 보간
+            Quaternion targetRotation = Quaternion.LookRotation(moveInput); 
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime); 
         }
+
+        
+        if (Input.GetButtonDown("Fire1")) 
+        {
+            animator.SetTrigger("Punch");
+            
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            isStatUIOpen = !isStatUIOpen;
+            statUIPanel.SetActive(isStatUIOpen);
+
+            if (isStatUIOpen)
+            {
+                statUIManager.UpdateStatUI(); 
+            }
+        }
+
     }
 
     void FixedUpdate()
@@ -63,25 +93,3 @@ public class PlayerController : MonoBehaviour
 }
 
 
-//public float MoveSpeed = 5f;
-
-//private Vector3 moveInput;
-
-//void Update()
-//{
-//    // 입력 받기
-//    float moveX = Input.GetAxisRaw("Horizontal");
-//    float moveZ = Input.GetAxisRaw("Vertical");
-
-//    moveInput = new Vector3(moveX, 0f, moveZ).normalized;
-
-//    // 위치 이동
-//    transform.position += moveInput * MoveSpeed * Time.deltaTime;
-
-//    // 방향 회전
-//    if (moveInput != Vector3.zero)
-//    {
-//        Quaternion targetRotation = Quaternion.LookRotation(moveInput);
-//        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10f * Time.deltaTime);
-//    }
-//}
