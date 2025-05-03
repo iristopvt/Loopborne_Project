@@ -24,7 +24,7 @@ public class StatUIManager : MonoBehaviour
         dexPlusButton.onClick.AddListener(OnClickIncreaseDEX);
         intPlusButton.onClick.AddListener(OnClickIncreaseINT);
 
-        gameObject.SetActive(false);
+        gameObject.SetActive(false); 
     }
 
     public void UpdateStatUI()

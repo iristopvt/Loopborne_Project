@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public float walkSpeed = 5f;
     public float runSpeed = 10f;
-    public float rotationSpeed = 10f;  // 회전 속도 추가
+    public float rotationSpeed = 10f;  
 
     private Rigidbody rb;
     private Vector3 moveInput;
@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
 
     public GameObject statUIPanel; 
     private StatUIManager statUIManager;
+
+    public BoxCollider PunchattackTrigger;
 
     private bool isStatUIOpen = false;
 
@@ -40,7 +42,6 @@ public class PlayerController : MonoBehaviour
 
         moveInput = new Vector3(moveX, 0f, moveZ).normalized;
 
-       
         if (Input.GetKey(KeyCode.LeftShift))
         {
             isRunning = true;
@@ -50,11 +51,9 @@ public class PlayerController : MonoBehaviour
             isRunning = false;
         }
 
-        
         float currentSpeed = isRunning ? runSpeed : walkSpeed;
         moveVelocity = moveInput * currentSpeed;
 
-     
         animator.SetFloat("MoveSpeed", moveVelocity.magnitude);
 
 
@@ -62,15 +61,14 @@ public class PlayerController : MonoBehaviour
 
         if (moveInput.magnitude > 0f) 
         {
-            Quaternion targetRotation = Quaternion.LookRotation(moveInput); 
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime); 
+            Quaternion targetRotation = Quaternion.LookRotation(moveInput);  
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);  
         }
 
-        
-        if (Input.GetButtonDown("Fire1")) 
+        if (Input.GetButtonDown("Fire1"))
         {
             animator.SetTrigger("Punch");
-            
+
         }
 
         if (Input.GetKeyDown(KeyCode.C))
@@ -90,6 +88,18 @@ public class PlayerController : MonoBehaviour
     {
         rb.MovePosition(rb.position + moveVelocity * Time.fixedDeltaTime);
     }
-}
 
+    public void EnableAttackTrigger()
+    {
+        PunchattackTrigger.enabled = true;
+
+
+        PunchattackTrigger.GetComponent<PlayerAttackHitBox>().ResetHit();
+    }
+
+    public void DisableAttackTrigger()
+    {
+        PunchattackTrigger.enabled = false;
+    }
+}
 
