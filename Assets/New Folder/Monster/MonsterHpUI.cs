@@ -25,8 +25,9 @@ public class MonsterHpUI : MonoBehaviour
         {
             hpSlider.value = (float)stat.currentHp / stat.maxHp;
 
+
             hpCanvas.transform.LookAt(cam);
-            hpCanvas.transform.Rotate(0, 180f, 0); 
+            hpCanvas.transform.Rotate(0, 180f, 0);
         }
     }
 

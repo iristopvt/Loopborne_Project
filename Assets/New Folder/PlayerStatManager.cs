@@ -8,11 +8,11 @@ public class PlayerStatManager : MonoBehaviour
     public int currentExp = 0;
     public int maxExp = 100;
 
-    public int strength = 5;     
+    public int strength = 5;      
     public int dexterity = 5;    
     public int intelligence = 5; 
 
-    public int bonusStatPoints = 0;
+    public int bonusStatPoints = 0; 
 
     public int maxHp = 100;
     public int currentHp;
@@ -80,7 +80,6 @@ public class PlayerStatManager : MonoBehaviour
         }
     }
 
-   
     public void TakeDamage(int damage)
     {
         currentHp -= damage;
@@ -90,6 +89,14 @@ public class PlayerStatManager : MonoBehaviour
         {
             Die();
         }
+    }
+    public void HealHp(int amount)
+    {
+        currentHp += amount;
+        if (currentHp > maxHp)
+            currentHp = maxHp;
+
+        Debug.Log($"HP 회복: +{amount}, 현재 HP: {currentHp}/{maxHp}");
     }
 
     private void Die()

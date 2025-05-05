@@ -25,7 +25,7 @@ public class SlimeAI : MonoBehaviour
         player = GameObject.FindWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        monsterStat = GetComponent<MonsterStat>();
+        monsterStat = GetComponent<MonsterStat>(); 
 
         attackTrigger.enabled = false;
     }
@@ -54,7 +54,6 @@ public class SlimeAI : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
             }
 
-          
         }
         else
         {
@@ -67,13 +66,11 @@ public class SlimeAI : MonoBehaviour
         animator.SetTrigger("Attack");
     }
 
-    
     public void EnableAttackTrigger()
     {
         attackTrigger.enabled = true;
     }
 
-   
     public void DisableAttackTrigger()
     {
         attackTrigger.enabled = false;

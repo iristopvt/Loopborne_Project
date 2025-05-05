@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
 
     private PlayerStatManager statManager;
 
-    public GameObject statUIPanel; 
+    public GameObject statUIPanel;
     private StatUIManager statUIManager;
 
     public BoxCollider PunchattackTrigger;
@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);  
         }
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1")) 
         {
             animator.SetTrigger("Punch");
 
@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
             if (isStatUIOpen)
             {
-                statUIManager.UpdateStatUI(); 
+                statUIManager.UpdateStatUI();
             }
         }
 
@@ -102,4 +102,5 @@ public class PlayerController : MonoBehaviour
         PunchattackTrigger.enabled = false;
     }
 }
+
 

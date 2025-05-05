@@ -15,7 +15,6 @@ public class StatButtonEffect : MonoBehaviour
     {
         originalScale = targetButton.transform.localScale;
 
-        // 버튼 클릭 이벤트 등록
         targetButton.onClick.AddListener(OnButtonClicked);
     }
 
@@ -26,12 +25,10 @@ public class StatButtonEffect : MonoBehaviour
 
     IEnumerator ClickEffect()
     {
-        // 작게 만들기
         targetButton.transform.localScale = originalScale * scaleDownSize;
 
         yield return new WaitForSeconds(effectDuration);
 
-        // 원래 크기로 복원
         targetButton.transform.localScale = originalScale;
     }
 }
