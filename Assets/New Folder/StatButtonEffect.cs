@@ -25,10 +25,12 @@ public class StatButtonEffect : MonoBehaviour
 
     IEnumerator ClickEffect()
     {
+       
         targetButton.transform.localScale = originalScale * scaleDownSize;
 
         yield return new WaitForSeconds(effectDuration);
 
+       
         targetButton.transform.localScale = originalScale;
     }
 }

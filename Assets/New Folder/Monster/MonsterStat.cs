@@ -64,8 +64,9 @@ public class MonsterStat : MonoBehaviour
         Debug.Log($"{gameObject.name} 사망!");
 
         GiveExpToPlayer();
-     
-        Destroy(gameObject, 1.5f); 
+
+
+        Destroy(gameObject, 1.5f);
     }
 
 

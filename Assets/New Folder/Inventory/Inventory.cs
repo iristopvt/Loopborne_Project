@@ -7,19 +7,24 @@ public class Inventory : MonoBehaviour
     public static bool inventoryActivated = false;
 
 
+   
     [SerializeField]
     private GameObject go_InventoryBase;
+    [SerializeField]
+    private GameObject go_EquipPanel;
     [SerializeField]
     private GameObject go_SlotsParent;
 
     private Slot[] slots;
 
 
+   
     void Start()
     {
         slots = go_SlotsParent.GetComponentsInChildren<Slot>();
     }
 
+   
     void Update()
     {
         TryOpenInventory();
@@ -41,11 +46,13 @@ public class Inventory : MonoBehaviour
     private void OpenInventory()
     {
         go_InventoryBase.SetActive(true);
+        go_EquipPanel.SetActive(true);
     }
 
     private void CloseInventory()
     {
         go_InventoryBase.SetActive(false);
+        go_EquipPanel.SetActive(false);
     }
 
     public void AcquireItem(Item _item, int _count = 1)

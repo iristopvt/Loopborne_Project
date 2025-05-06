@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class PlayerStatManager : MonoBehaviour
 {
+  
     public int level = 1;
     public int currentExp = 0;
     public int maxExp = 100;
 
-    public int strength = 5;      
+    public int strength = 5;    
     public int dexterity = 5;    
-    public int intelligence = 5; 
+    public int intelligence = 5;  
 
     public int bonusStatPoints = 0; 
 
+  
     public int maxHp = 100;
     public int currentHp;
 
@@ -24,6 +26,7 @@ public class PlayerStatManager : MonoBehaviour
 
     void Update()
     {
+        // 테스트: 키보드 L 누르면 경험치 50 추가
         if (Input.GetKeyDown(KeyCode.L))
         {
             GainExp(50);
@@ -49,6 +52,7 @@ public class PlayerStatManager : MonoBehaviour
         maxExp += 20;
         Debug.Log($"레벨업! 현재 레벨: {level}, 보너스 포인트: {bonusStatPoints}");
     }
+
 
     public void IncreaseStrength()
     {
@@ -80,6 +84,7 @@ public class PlayerStatManager : MonoBehaviour
         }
     }
 
+  
     public void TakeDamage(int damage)
     {
         currentHp -= damage;
@@ -102,5 +107,6 @@ public class PlayerStatManager : MonoBehaviour
     private void Die()
     {
         Debug.Log("플레이어 사망!");
+      
     }
 }

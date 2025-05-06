@@ -25,6 +25,10 @@ public class PlayerController : MonoBehaviour
 
     private bool isStatUIOpen = false;
 
+    public GameObject rightHandWeaponObject; 
+
+    private Coroutine comboCoroutine;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -32,6 +36,8 @@ public class PlayerController : MonoBehaviour
         statManager = GetComponent<PlayerStatManager>();
 
         statUIManager = statUIPanel.GetComponent<StatUIManager>();
+
+        animator.SetBool("HasWeapon", rightHandWeaponObject != null && rightHandWeaponObject.activeSelf);
 
     }
 
@@ -42,6 +48,7 @@ public class PlayerController : MonoBehaviour
 
         moveInput = new Vector3(moveX, 0f, moveZ).normalized;
 
+        
         if (Input.GetKey(KeyCode.LeftShift))
         {
             isRunning = true;
@@ -51,14 +58,18 @@ public class PlayerController : MonoBehaviour
             isRunning = false;
         }
 
+     
         float currentSpeed = isRunning ? runSpeed : walkSpeed;
         moveVelocity = moveInput * currentSpeed;
 
+      
         animator.SetFloat("MoveSpeed", moveVelocity.magnitude);
 
 
+        
         animator.SetBool("IsRunning", isRunning);
 
+        
         if (moveInput.magnitude > 0f) 
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveInput);  
@@ -67,7 +78,23 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1")) 
         {
-            animator.SetTrigger("Punch");
+           
+
+            if (rightHandWeaponObject != null && rightHandWeaponObject.activeSelf)
+            {
+                animator.SetBool("HasWeapon", true); 
+                animator.SetTrigger("SwordAttack1");
+
+                
+                if (comboCoroutine != null)
+                    StopCoroutine(comboCoroutine);
+                comboCoroutine = StartCoroutine(EnableNextComboWindow());
+            }
+            else
+            {
+                animator.SetBool("HasWeapon", false); 
+                animator.SetTrigger("Punch");
+            }
 
         }
 
@@ -78,7 +105,7 @@ public class PlayerController : MonoBehaviour
 
             if (isStatUIOpen)
             {
-                statUIManager.UpdateStatUI();
+                statUIManager.UpdateStatUI(); 
             }
         }
 
@@ -100,6 +127,20 @@ public class PlayerController : MonoBehaviour
     public void DisableAttackTrigger()
     {
         PunchattackTrigger.enabled = false;
+    }
+
+    IEnumerator EnableNextComboWindow()
+    {
+        yield return new WaitForSeconds(0.3f);
+        animator.SetBool("NextCombo", true);
+        yield return new WaitForSeconds(0.3f); 
+        animator.SetBool("NextCombo", false);
+    }
+
+    public void SetWeaponActive(bool active)
+    {
+        rightHandWeaponObject?.SetActive(active);
+        animator.SetBool("HasWeapon", active);
     }
 }
 

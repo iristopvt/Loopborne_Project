@@ -16,15 +16,17 @@ public class FollowCamera : MonoBehaviour
         Vector3 targetPosition = target.position + offset;
         transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
         transform.LookAt(target);
+    }
 
-        void Start()
-        {
+    
+    void Start()
+    {
+        
+    }
 
-        }
 
-        void Update()
-        {
-
-        }
+    void Update()
+    {
+        
     }
 }

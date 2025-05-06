@@ -3625,7 +3625,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7183529051525611588, guid: 8cf18e3329f157d4d9e4bc41d64c525a, type: 3}
       propertyPath: m_Name
-      value: Sword(4)_DH
+      value: Sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 7183529051525611588, guid: 8cf18e3329f157d4d9e4bc41d64c525a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7186130211707810978, guid: 8cf18e3329f157d4d9e4bc41d64c525a, type: 3}
       propertyPath: m_LocalPosition.x

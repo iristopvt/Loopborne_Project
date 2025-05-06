@@ -25,7 +25,7 @@ public class SlimeAI : MonoBehaviour
         player = GameObject.FindWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        monsterStat = GetComponent<MonsterStat>(); 
+        monsterStat = GetComponent<MonsterStat>();
 
         attackTrigger.enabled = false;
     }
@@ -48,24 +48,29 @@ public class SlimeAI : MonoBehaviour
             agent.isStopped = false;
             agent.SetDestination(player.position);
 
+           
             if (agent.desiredVelocity.magnitude > 0.1f)
             {
                 Quaternion lookRotation = Quaternion.LookRotation(agent.desiredVelocity.normalized);
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
             }
 
+           
         }
         else
         {
+          
             agent.isStopped = true;
         }
     }
 
     void StartAttack()
     {
+      
         animator.SetTrigger("Attack");
     }
 
+    
     public void EnableAttackTrigger()
     {
         attackTrigger.enabled = true;
@@ -83,7 +88,7 @@ public class SlimeAI : MonoBehaviour
             PlayerStatManager playerStat = other.GetComponent<PlayerStatManager>();
             if (playerStat != null && monsterStat != null)
             {
-                playerStat.TakeDamage(monsterStat.attackPower);
+                playerStat.TakeDamage(monsterStat.attackPower); 
                 Debug.Log("플레이어가 슬라임에게 데미지를 입었습니다. 남은 체력: " + playerStat.currentHp);
             }
         }

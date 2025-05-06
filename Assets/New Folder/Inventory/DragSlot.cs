@@ -9,9 +9,10 @@ public class DragSlot : MonoBehaviour
     static public DragSlot instance;
 
     public Slot dragSlot;
+    public EquipSlot dragEquipSlot;
 
     [SerializeField]
-    private Image imageItem;
+    public Image imageItem;
 
     void Start()
     {

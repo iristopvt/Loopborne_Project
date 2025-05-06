@@ -5,19 +5,20 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
 public class Item : ScriptableObject
 {
-    public string itemName;           
+    public string itemName;          
     [TextArea]
-    public string itemDesc;             
-    public Sprite itemImage;           
-    public GameObject itemPrefab;       
+    public string itemDesc;            
+    public Sprite itemImage;          
+    public GameObject itemPrefab;     
     public ItemType itemType;          
-    public EquipmentType equipmentType; 
-
+    public EquipmentType equipmentType;
+  
     public int damage;
     public float attackSpeed;
 
+ 
     public ConsumableType consumableType; 
-    public int amount;                    
+    public int amount;                   
 
     public enum ItemType
     {
@@ -42,5 +43,6 @@ public class Item : ScriptableObject
         None,
         HealthPotion,
         ManaPotion
+       
     }
 }

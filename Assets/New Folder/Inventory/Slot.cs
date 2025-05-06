@@ -9,21 +9,25 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
 
     private Vector3 originPos;
 
-    public Item item;
+    public Item item; 
     public int itemCount; 
     public Image itemImage; 
 
 
+  
     [SerializeField]
     private Text text_Count;
     [SerializeField]
     private GameObject go_CountImage;
+
+
 
     void Start()
     {
         originPos = transform.position;
     }
 
+   
     private void SetColor(float _alpha)
     {
         Color color = itemImage.color;
@@ -31,6 +35,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         itemImage.color = color;
     }
 
+ 
     public void AddItem(Item _item, int _count = 1)
     {
         item = _item;
@@ -60,7 +65,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
             ClearSlot();
     }
 
-    private void ClearSlot()
+    
+    public void ClearSlot()
     {
         item = null;
         itemCount = 0;
@@ -88,7 +94,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
                                 playerStat.HealHp(item.amount);
                                 break;
                             case Item.ConsumableType.ManaPotion:
-                                // 추후 Mana 관련 기능 추가 시 여기에 추가
+                                // 추후 Mana 관련 기능 추가 시 여기
                                 break;
                         }
 
@@ -108,6 +114,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
             DragSlot.instance.DragSetImage(itemImage);
 
             DragSlot.instance.transform.position = eventData.position;
+
+
         }
 
     }
@@ -118,7 +126,9 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         {
             DragSlot.instance.transform.position = eventData.position;
         }
+
     }
+
 
     public void OnEndDrag(PointerEventData eventData)
     {
@@ -129,8 +139,24 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     public void OnDrop(PointerEventData eventData)
     {
 
-        if (DragSlot.instance.dragSlot != null)
+      
+        if (DragSlot.instance.dragSlot == null && DragSlot.instance.dragEquipSlot != null)
+        {
+         
+            Item fromEquipItem = DragSlot.instance.dragEquipSlot.currentItem;
+
+            if (fromEquipItem != null)
+            {
+                AddItem(fromEquipItem);
+                DragSlot.instance.dragEquipSlot.ClearEquipSlot();
+                Debug.Log("장비창 → 인벤토리로 이동 완료");
+            }
+        }
+        else if (DragSlot.instance.dragSlot != null)
+        {
+           
             ChangeSlot();
+        }
     }
 
     private void ChangeSlot()
