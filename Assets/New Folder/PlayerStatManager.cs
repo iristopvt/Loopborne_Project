@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PlayerStatManager : MonoBehaviour
 {
-  
+
     public int level = 1;
     public int currentExp = 0;
     public int maxExp = 100;
 
     public int strength = 5;    
-    public int dexterity = 5;    
+    public int dexterity = 5;   
     public int intelligence = 5;  
 
     public int bonusStatPoints = 0; 
@@ -22,11 +22,15 @@ public class PlayerStatManager : MonoBehaviour
     void Start()
     {
         currentHp = maxHp;
+
+
+
+      
     }
 
     void Update()
     {
-        // 테스트: 키보드 L 누르면 경험치 50 추가
+      
         if (Input.GetKeyDown(KeyCode.L))
         {
             GainExp(50);
@@ -84,7 +88,7 @@ public class PlayerStatManager : MonoBehaviour
         }
     }
 
-  
+
     public void TakeDamage(int damage)
     {
         currentHp -= damage;
@@ -107,6 +111,36 @@ public class PlayerStatManager : MonoBehaviour
     private void Die()
     {
         Debug.Log("플레이어 사망!");
-      
+       
+    }
+
+    public  void ApplyTraits()
+    {
+       
+        if (TraitManager.Instance == null)
+        {
+            Debug.LogWarning("TraitManager 인스턴스가 존재하지 않습니다.");
+            return;
+        }
+
+        if (TraitManager.Instance.selectedTraits.Count == 0)
+        {
+            Debug.LogWarning("선택된 특성이 없습니다.");
+            return;
+        }
+
+
+        foreach (var trait in TraitManager.Instance.selectedTraits)
+        {
+            Debug.Log($"적용 중인 특성: {trait.traitName}");
+            strength += trait.strModifier;
+            dexterity += trait.dexModifier;
+            intelligence += trait.intModifier;
+            maxHp += Mathf.RoundToInt(trait.hpModifier);
+        }
+
+        currentHp = maxHp;
+
+        Debug.Log($"▶ 특성 적용 완료 - 힘:{strength}, 민첩:{dexterity}, 지능:{intelligence}, HP:{maxHp}");
     }
 }

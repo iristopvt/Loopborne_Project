@@ -16,6 +16,10 @@ public class MonsterStat : MonoBehaviour
     [Header("드롭 보상")]
     public int MonsterDropExp = 20;
 
+   
+
+    [Header("드랍 아이템 목록")]
+    public List<DropItemData> dropItems;  
     private Animator animator;
     private bool isDead = false;
 
@@ -40,6 +44,7 @@ public class MonsterStat : MonoBehaviour
         {
             animator.SetInteger("DamageType", 1); 
             animator.SetTrigger("Damage");
+            Debug.Log("Damage Trigger 발동됨");
         }
         else
         {
@@ -60,13 +65,13 @@ public class MonsterStat : MonoBehaviour
 
         isDead = true;
         animator.SetBool("isDead", true);
+        Debug.Log("Death 애니메이션 호출됨");
 
         Debug.Log($"{gameObject.name} 사망!");
 
+        DropItem();         
         GiveExpToPlayer();
-
-
-        Destroy(gameObject, 1.5f);
+       Destroy(gameObject, 1.5f); 
     }
 
 
@@ -80,6 +85,21 @@ public class MonsterStat : MonoBehaviour
             {
                 statManager.GainExp(MonsterDropExp);
                 Debug.Log($"플레이어가 {MonsterDropExp} 경험치를 얻었습니다.");
+            }
+        }
+    }
+
+    void DropItem()
+    {
+       
+      
+        foreach (var drop in dropItems)
+        {
+            if (Random.value <= drop.dropChance)
+            {
+                Instantiate(drop.itemPrefab);
+                Debug.Log($"[드랍됨] {drop.itemPrefab.name}");
+             
             }
         }
     }

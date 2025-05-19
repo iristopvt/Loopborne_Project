@@ -9,18 +9,17 @@ public class ActionController : MonoBehaviour
 
 
     [SerializeField]
-    private float range; 
+    private float range;
 
     private bool pickupActivated = false; 
 
-    private RaycastHit hitInfo; 
+    private RaycastHit hitInfo;
 
-
-   
+  
     [SerializeField]
     private LayerMask layerMask;
 
-
+  
     [SerializeField]
     private Text actionText;
     [SerializeField]
@@ -28,7 +27,7 @@ public class ActionController : MonoBehaviour
 
     private Collider targetItem;
 
-  
+    // Update is called once per frame
     void Update()
     {
         CheckItem();
@@ -46,7 +45,7 @@ public class ActionController : MonoBehaviour
 
     private void CanPickUp()
     {
- 
+        
 
         if (pickupActivated && targetItem != null)
         {
@@ -60,7 +59,8 @@ public class ActionController : MonoBehaviour
 
     private void CheckItem()
     {
-   
+       
+
 
         Collider[] hits = Physics.OverlapSphere(transform.position, range, layerMask);
 
@@ -77,12 +77,12 @@ public class ActionController : MonoBehaviour
         targetItem = null;
         InfoDisappear();
 
-
+   
     }
 
     private void ItemInfoAppear()
     {
-      
+        
         pickupActivated = true;
         actionText.gameObject.SetActive(true);
         actionText.text = targetItem.GetComponent<ItemPickUp>().item.itemName + " 획득 <color=yellow>(E)</color>";

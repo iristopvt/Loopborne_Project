@@ -7,9 +7,10 @@ public class EquipmentManager : MonoBehaviour
     public static EquipmentManager Instance;
 
     [Header("장비 오브젝트들")]
+   
     public GameObject helmetObject;
     public GameObject armorObject;
-    public GameObject shoeObject;
+    public GameObject pantsObject;
     public GameObject weaponObject;
 
     private void Awake()
@@ -33,10 +34,9 @@ public class EquipmentManager : MonoBehaviour
                 if (armorObject != null)
                     armorObject.SetActive(true);
                 break;
-
-            case Item.EquipmentType.Boots:
-                if (shoeObject != null)
-                    shoeObject.SetActive(true);
+            case Item.EquipmentType.Pants:
+                if (pantsObject != null)
+                    pantsObject.SetActive(true);
                 break;
 
             case Item.EquipmentType.Weapon:

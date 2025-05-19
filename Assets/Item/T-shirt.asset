@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5745b6ceb386e1f458182fc0c44b1d19, type: 3}
+  m_Name: T-shirt
+  m_EditorClassIdentifier: 
+  itemName: "\uD2F0\uC154\uCE20"
+  itemDesc: "\uAE30\uBCF8 \uD2F0\uC154"
+  itemImage: {fileID: 21300000, guid: aab0b602ec4b31e46b352a8ddf2c097f, type: 3}
+  itemPrefab: {fileID: 7788890919989508538, guid: 20ff9cdbe7fdead45b03573b7d0262ab, type: 3}
+  itemType: 0
+  equipmentType: 2
+  damage: 0
+  attackSpeed: 0
+  consumableType: 0
+  amount: 0

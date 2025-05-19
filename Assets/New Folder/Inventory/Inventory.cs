@@ -7,7 +7,6 @@ public class Inventory : MonoBehaviour
     public static bool inventoryActivated = false;
 
 
-   
     [SerializeField]
     private GameObject go_InventoryBase;
     [SerializeField]
@@ -18,13 +17,12 @@ public class Inventory : MonoBehaviour
     private Slot[] slots;
 
 
-   
     void Start()
     {
         slots = go_SlotsParent.GetComponentsInChildren<Slot>();
     }
 
-   
+    
     void Update()
     {
         TryOpenInventory();

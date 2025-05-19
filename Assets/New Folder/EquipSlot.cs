@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class EquipSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public enum SlotType { Helmet, Armor, Shoes, Weapon, None }
+    public enum SlotType { Helmet, Armor, Pants, Weapon, None }
     public SlotType slotType;
 
     public Image itemImage;
@@ -21,7 +21,12 @@ public class EquipSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IDragHa
 
         Slot dragSlot = DragSlot.instance.dragSlot;
 
-  
+
+        if (dragSlot == null || dragSlot.item == null)
+        {
+            Debug.LogWarning("드래그 슬롯이 비어있습니다.");
+            return;
+        }
 
         if (IsMatchSlotType(dragSlot.item.equipmentType))
         {
@@ -33,11 +38,35 @@ public class EquipSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IDragHa
 
             Debug.Log($"장비 장착됨: {currentItem.itemName}");
 
-            if (slotType == SlotType.Weapon && playerController != null)
+            if (playerController != null)
             {
-                playerController.rightHandWeaponObject.SetActive(true);
+                switch (slotType)
+                {
+                    case SlotType.Weapon:
+                        if (playerController.rightHandWeaponObject != null)
+                            playerController.rightHandWeaponObject.SetActive(true);
+                        break;
+
+                    case SlotType.Helmet:
+                        if (playerController.HelmetObject != null)
+                            playerController.HelmetObject.SetActive(true);
+                        break;
+
+                    case SlotType.Armor:
+                        if (playerController.jacketObject != null)
+                            playerController.jacketObject.SetActive(true);
+                        break;
+
+                    case SlotType.Pants:
+                        if (playerController.pantsObject != null)
+                            playerController.pantsObject.SetActive(true);
+                        break;
+
+                    
+                }
             }
         }
+    
     }
 
     private bool IsMatchSlotType(Item.EquipmentType type)
@@ -45,7 +74,7 @@ public class EquipSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IDragHa
         return
             (slotType == SlotType.Helmet && type == Item.EquipmentType.Helmet) ||
             (slotType == SlotType.Armor && type == Item.EquipmentType.Armor) ||
-            (slotType == SlotType.Shoes && type == Item.EquipmentType.Boots) ||
+            (slotType == SlotType.Pants && type == Item.EquipmentType.Pants) ||
             (slotType == SlotType.Weapon && type == Item.EquipmentType.Weapon);
     }
 
@@ -82,15 +111,37 @@ public class EquipSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IDragHa
 
     public void ClearEquipSlot()
     {
-        if (slotType == SlotType.Weapon && playerController != null)
+     
+
+        if (playerController != null)
         {
-            playerController.rightHandWeaponObject.SetActive(false);
+            switch (slotType)
+            {
+                case SlotType.Weapon:
+                    if (playerController.rightHandWeaponObject != null)
+                        playerController.rightHandWeaponObject.SetActive(false);
+                    break;
+
+                case SlotType.Helmet:
+                    if (playerController.HelmetObject != null)
+                        playerController.HelmetObject.SetActive(false);
+                    break;
+                case SlotType.Armor:
+                    if (playerController.jacketObject != null)
+                        playerController.jacketObject.SetActive(false);
+                    break;
+                case SlotType.Pants:
+                    if (playerController.pantsObject != null)
+                        playerController.pantsObject.SetActive(false);
+                    break;
+
+                    
+            }
         }
 
         currentItem = null;
         itemImage.sprite = null;
         itemImage.color = new Color(1, 1, 1, 0);
-
-     
     }
 }
+

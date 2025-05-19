@@ -18,5 +18,7 @@ MonoBehaviour:
   itemPrefab: {fileID: 7183529051525611588, guid: 8cf18e3329f157d4d9e4bc41d64c525a, type: 3}
   itemType: 0
   equipmentType: 1
-  damage: 3
+  damage: 15
   attackSpeed: 0
+  consumableType: 0
+  amount: 0
