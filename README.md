@@ -59,6 +59,56 @@ Camera
 - 몬스터 처치 및 경험치에 따른 레벨업 시스템
 - 마우스 드래그 기반 인벤토리 UI
 
+📌  이 코드는 ScriptableObject 기반 아이템 정의로, 
+장비 및 소모품 데이터를 분리하고 다양한 아이템 타입을 구조화하여 인벤토리 시스템에서 활용됩니다.
+
+   
+```csharp
+[CreateAssetMenu(fileName = "New Item", menuName = "Item")]
+public class Item : ScriptableObject
+{
+    public string itemName;            
+    [TextArea]
+    public string itemDesc;           
+    public Sprite itemImage;           
+    public GameObject itemPrefab;     
+    public ItemType itemType;           
+    public EquipmentType equipmentType; 
+
+
+    public int damage;
+    public float attackSpeed;
+
+
+    public ConsumableType consumableType;
+    public int amount;                  
+
+    public enum ItemType
+    {
+        Equipment,
+        Consumable,
+        Ingredient,
+        ETC
+    }
+
+    public enum EquipmentType
+    {
+        None,
+        Weapon,
+        Armor,
+        Helmet,
+        Pants
+    }
+
+    public enum ConsumableType
+    {
+        None,
+        HealthPotion,
+        ManaPotion
+        
+    }
+}
+```
 
 🛠️ 오류 상황 및 해결 방안
 
